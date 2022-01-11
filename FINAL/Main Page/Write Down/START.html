@@ -21,7 +21,6 @@
     top: 50%;
 }
 
-
 textarea.textRegion{
     resize: none;
     background-color:white;
@@ -43,49 +42,26 @@ textarea.textRegion{
 
 #stressLevel{
 text-align:center;
-
 }
-
 </style>
 <body style='background-color:lightsalmon'>
-
-
 	<div class='enclose'>
-
-	<h1>My Thoughts</h1>
-
+	  <h1>My Thoughts</h1>
 	</div>
-	 
-	<textarea id = "textArea" class='textRegion' rows='15' 
-	cols='15'text-align='center' >
-Write Anything
-	
-	         
-	</textarea>
+	<textarea id= "textArea" class='textRegion' rows='15' cols='15'text-align='center' placeholder= "Write your Thoughts"></textarea>
 	<br>
 	<div class="wrapper">
-		<button type="button" onclick='saveTextAsFile()'value="save" id="save"> Save</button> 
-		
-		<br>
-		<br>
+	  <button type="button" onclick="saveTextAsWord('textArea', 'my-thoughts.docx')";value="save" id="save"> Save</button> 
+	<br>
+	<br>
+	<div id='firstParagraph'></div>
+	<br>
+	<br>
+	  <div>
+		  <select id='stressLevel'></select>
+	  </div>
+	</div>
 
-		<div id='firstParagraph'>
-		</div>
-
-		<br>
-		<br>
-
-	
-		<div>
-
-		<select id='stressLevel'></select>
-		</div>
-		
-		</div>
-
-	
-		<script src='saveButton.js'></script>
-		
-	
+	<script src='saveButton.js'></script>
 </body>
 </html>
