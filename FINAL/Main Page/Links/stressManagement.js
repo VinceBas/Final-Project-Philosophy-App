@@ -1,27 +1,29 @@
-function saveTextAsFile() {
-	let textToWrite = document.getElementById('stressArea').value;
-	let textFileAsBlob = new Blob([textToWrite], {
-	  type: 'text/plain'
-	});
-	let fileNameToSaveAs = "stress-causers.text";
- 
-	let downloadLink = document.createElement("a");
-	downloadLink.download = fileNameToSaveAs;
-	downloadLink.innerHTML = "Download File";
-	if (window.webkitURL != null) {
-	  // Chrome allows the link to be clicked
-	  // without actually adding it to the DOM.
-	  downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
-	} else {
-	  // Firefox requires the link to be added to the DOM
-	  // before it can be clicked.
-	  downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-	  downloadLink.onclick = destroyClickedElement;
-	  downloadLink.style.display = "none";
-	  document.body.appendChild(downloadLink);
-	}
+function saveTextAsWord(filename = '') {
+    let html = document.getElementById('stressArea').value
+    let blob = new Blob(['html'], {
+        type: 'application/msword'
+    });
+    let url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+	
+    filename = filename?filename+'.doc':'document.doc';
 
-	downloadLink.click();
+    let downloadLink = document.createElement("a");
+    document.body.appendChild(downloadLink);
+
+    if(navigator.msSaveOrOpenBlob ){
+        navigator.msSaveOrOpenBlob(blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = url;
+        
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+    document.body.removeChild(downloadLink);
+}
 
 	let lowest=1.00
 	let highest=5.0
@@ -37,7 +39,7 @@ function saveTextAsFile() {
    let stressLevelDiv=document.getElementById('stressLevel')
 	stressLevelDiv.innerHTML=levelOfStress
 
-  }
+  
  
   let button = document.getElementById('save');
   button.addEventListener('click', saveTextAsFile);
